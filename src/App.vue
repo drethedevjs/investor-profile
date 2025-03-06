@@ -143,8 +143,10 @@ import businessTypes from "./data/businessTypes";
   @apply container md:px-20 px-10 mx-auto;
 }
 
-.ep-btn {
-  @apply bg-accent px-20 py-4 font-bold text-2xl rounded-md hover:bg-cream transition-colors;
+@layer {
+  .ep-btn {
+    @apply bg-accent px-20 py-4 font-bold text-2xl rounded-md hover:bg-cream transition-colors;
+  }
 }
 
 form {
