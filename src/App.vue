@@ -14,8 +14,9 @@ import businessTypes from "./data/businessTypes";
       <img
         src="/images/csra-investment-company-hero.jpg"
         alt="a woman standing in a meeting addressing the attendees"
+        class="h-full w-full object-cover"
       />
-      <div class="overlay"></div>
+      <div class="overlay flex md:hidden"></div>
       <div id="hero-txt">
         <h1>Investing in Your Legacy</h1>
         <p id="tagline">We buy and invest in small businesses</p>
@@ -30,8 +31,8 @@ import businessTypes from "./data/businessTypes";
       <InvestmentCriteria />
     </div>
 
-    <div id="business-types" class="container-pane my-20">
-      <div class="w-2/3 mx-auto text-center">
+    <div id="business-types" class="container-pane md:my-20 my-10">
+      <div class="md:w-2/3 mx-auto text-center">
         <h2 class="text-secondary">Types of Businesses</h2>
         <p class="">
           We specialize in investing in businesses that have strong growth potential, committed
@@ -40,17 +41,35 @@ import businessTypes from "./data/businessTypes";
           particularly interested in.
         </p>
       </div>
-      <div class="mt-10 grid gap-5 grid-cols-2 md:grid-cols-3">
+      <!-- mobile list -->
+      <div class="mt-10 grid gap-5 grid-cols-1 md:grid-cols-3">
         <div
           v-for="bt in businessTypes"
           :key="bt.name"
-          class="card w-96 shadow-sm border-2 border-accent"
+          class="md:hidden flex gap-5 border-2 border-accent rounded-lg"
+        >
+          <div class="overflow-hidden h-20 w-20">
+            <img :src="bt.imageSrc" :alt="bt.alt" class="rounded-t-md w-full h-full object-cover" />
+          </div>
+
+          <div class="place-content-center">
+            <p class="text-primary tracking-widest uppercase m-0">{{ bt.name }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- desktop list -->
+      <div class="mt-10 md:grid gap-5 grid-cols-1 md:grid-cols-3 hidden">
+        <div
+          v-for="bt in businessTypes"
+          :key="bt.name"
+          class="card w-full md:w-96 shadow-sm border-2 border-accent"
         >
           <div class="overflow-hidden h-60">
             <img :src="bt.imageSrc" :alt="bt.alt" class="rounded-t-md w-full h-full object-cover" />
           </div>
           <div class="text-center p-0">
-            <p class="text-primary tracking-widest uppercase">{{ bt.name }}</p>
+            <p class="text-primary tracking-widest uppercase m-0">{{ bt.name }}</p>
           </div>
         </div>
       </div>
@@ -117,11 +136,11 @@ import businessTypes from "./data/businessTypes";
 }
 
 #tagline {
-  @apply text-5xl tracking-widest text-accent drop-shadow-lg mt-4 uppercase;
+  @apply md:text-5xl text-xl tracking-widest text-accent drop-shadow-lg mt-4 uppercase;
 }
 
 .container-pane {
-  @apply container px-20 mx-auto;
+  @apply container md:px-20 px-10 mx-auto;
 }
 
 .ep-btn {

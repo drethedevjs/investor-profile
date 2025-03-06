@@ -5,7 +5,7 @@
 @plugin "daisyui";
 
 h1 {
-  @apply text-9xl text-white drop-shadow-lg font-bold;
+  @apply md:text-9xl text-5xl text-white drop-shadow-lg font-bold;
 }
 
 h2 {
@@ -13,7 +13,7 @@ h2 {
 }
 
 p {
-  @apply text-2xl leading-9 mb-3;
+  @apply md:text-2xl md:leading-9 text-xl mb-3;
 }
 
 html {

@@ -3,7 +3,7 @@ import process from "@/data/process";
 </script>
 <template>
   <div id="our-process" class="bg-cream text-primary py-20">
-    <div class="w-2/3 mx-auto text-center">
+    <div class="md:w-2/3 px-5 mx-auto text-center">
       <h2 class="text-secondary">Our Investment Process</h2>
       <p>
         We believe in making the investment process straightforward and transparent. Whether you're
@@ -12,7 +12,7 @@ import process from "@/data/process";
         ensures a smooth transition and long-term success.
       </p>
 
-      <table class="table mt-20">
+      <table class="table md:mt-20 mt-10">
         <tbody>
           <tr v-for="p in process" :key="p.step">
             <td>
@@ -33,10 +33,10 @@ import process from "@/data/process";
 
 <style scoped>
 .answer-header {
-  @apply text-5xl text-secondary;
+  @apply md:text-5xl text-3xl text-secondary;
 }
 
 .step {
-  @apply text-7xl;
+  @apply md:text-7xl text-2xl;
 }
 </style>

@@ -25,7 +25,7 @@ import HamburgerIcon from "./HamburgerIcon.vue";
         <p class="tracking-widest uppercase font-thin">holdings</p>
       </div>
       <div class="navbar-end">
-        <div class="pr-40 flex">
+        <div class="pr-40 md:flex hidden">
           <a
             href="mailto:info@eleventhandpemberton.com"
             class="contact-link"
