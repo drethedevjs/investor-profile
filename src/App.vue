@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AboutPane from "./components/AboutPane.vue";
 import InvestmentCriteria from "./components/InvestmentCriteria.vue";
+import OurProcessPane from "./components/OurProcessPane.vue";
 import TheHeader from "./components/TheHeader.vue";
 import businessTypes from "./data/businessTypes";
 </script>
@@ -53,6 +54,8 @@ import businessTypes from "./data/businessTypes";
         </div>
       </div>
     </div>
+
+    <OurProcessPane />
   </main>
 </template>
 

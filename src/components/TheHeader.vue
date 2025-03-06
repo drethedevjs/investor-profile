@@ -16,6 +16,7 @@ import HamburgerIcon from "./HamburgerIcon.vue";
             <li><a href="#about-pane">About</a></li>
             <li><a href="#investment-criteria">Our Criteria</a></li>
             <li><a href="#business-types">Investment Types</a></li>
+            <li><a href="#our-process">Our Process</a></li>
           </ul>
         </div>
       </div>
