@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import AboutPane from './components/AboutPane.vue'
-import TheHeader from './components/TheHeader.vue'
+import AboutPane from "./components/AboutPane.vue";
+import InvestmentCriteria from "./components/InvestmentCriteria.vue";
+import TheHeader from "./components/TheHeader.vue";
+import businessTypes from "./data/businessTypes";
 </script>
 
 <template>
@@ -20,6 +22,36 @@ import TheHeader from './components/TheHeader.vue'
 
     <div class="container px-20 mx-auto">
       <AboutPane />
+    </div>
+
+    <div class="bg-primary text-accent py-20">
+      <InvestmentCriteria />
+    </div>
+
+    <div id="business-types" class="container px-20 mx-auto my-20">
+      <div class="w-2/3 mx-auto text-center">
+        <h2 class="text-secondary">Types of Businesses</h2>
+        <p class="">
+          We specialize in investing in businesses that have strong growth potential, committed
+          leadership, and a clear vision for the future. We focus on industries that align with our
+          values and where we can make a lasting impact. Below are the types of businesses we are
+          particularly interested in.
+        </p>
+      </div>
+      <div class="mt-10 grid gap-5 grid-cols-2 md:grid-cols-3">
+        <div
+          v-for="bt in businessTypes"
+          :key="bt.name"
+          class="card w-96 shadow-sm border-2 border-accent"
+        >
+          <div class="overflow-hidden h-60">
+            <img :src="bt.imageSrc" :alt="bt.alt" class="rounded-t-md w-full h-full object-cover" />
+          </div>
+          <div class="text-center p-0">
+            <p class="text-primary tracking-widest uppercase">{{ bt.name }}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 </template>
