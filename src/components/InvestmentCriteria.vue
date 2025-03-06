@@ -1,5 +1,5 @@
 <template>
-  <div id="investment-profile" class="mx-52">
+  <div id="investment-criteria" class="mx-52">
     <div class="w-1/2 mx-auto text-center">
       <h2 class="text-neutral">Investment Criteria</h2>
       <p class="text-white">
