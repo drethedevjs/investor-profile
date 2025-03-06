@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Mail, Phone } from "lucide-vue-next";
 import AboutPane from "./components/AboutPane.vue";
 import InvestmentCriteria from "./components/InvestmentCriteria.vue";
 import OurProcessPane from "./components/OurProcessPane.vue";
@@ -21,7 +22,7 @@ import businessTypes from "./data/businessTypes";
       </div>
     </div>
 
-    <div class="container px-20 mx-auto">
+    <div class="container-pane">
       <AboutPane />
     </div>
 
@@ -29,7 +30,7 @@ import businessTypes from "./data/businessTypes";
       <InvestmentCriteria />
     </div>
 
-    <div id="business-types" class="container px-20 mx-auto my-20">
+    <div id="business-types" class="container-pane my-20">
       <div class="w-2/3 mx-auto text-center">
         <h2 class="text-secondary">Types of Businesses</h2>
         <p class="">
@@ -56,6 +57,53 @@ import businessTypes from "./data/businessTypes";
     </div>
 
     <OurProcessPane />
+
+    <div id="contact" class="container-pane text-center my-20">
+      <h2>Contact Us</h2>
+      <p>
+        Have a business opportunity or questions about our investment process? We'd love to hear
+        from you! Whether you're looking to sell, partner, or simply learn more about what we do,
+        reach out, and let's start the conversation.
+      </p>
+
+      <div class="flex place-content-center gap-10 scale-150 mt-20">
+        <div>
+          <a
+            href="mailto:info@eleventhandpemberton.com"
+            class="flex flex-col items-center text-center"
+          >
+            <Mail class="scale-150 mb-5 hover:text-neutral" />
+            <p class="tracking-wide">info@eleventhandpemberton.com</p>
+          </a>
+        </div>
+        <div>
+          <a href="tel:7064263022" class="flex flex-col items-center text-center">
+            <Phone class="scale-150 mb-5 hover:text-neutral" />
+            <p class="tracking-wide">760-426-3022</p>
+          </a>
+        </div>
+      </div>
+
+      <form>
+        <div class="flex gap-5">
+          <input type="text" placeholder="First and Last Name" class="" />
+          <input type="tel" placeholder="Phone" class="" />
+        </div>
+        <div class="flex gap-5">
+          <input type="email" placeholder="Email" class="" />
+          <input type="text" placeholder="Business Name" class="" />
+        </div>
+
+        <input type="url" placeholder="Business Website" />
+        <textarea
+          placeholder="Tell us about you and your business"
+          class="w-1/2 rounded-lg p-3"
+          rows="6"
+        ></textarea>
+
+        <button class="ep-btn">Send</button>
+      </form>
+    </div>
   </main>
 </template>
 
@@ -70,5 +118,21 @@ import businessTypes from "./data/businessTypes";
 
 #tagline {
   @apply text-5xl tracking-widest text-accent drop-shadow-lg mt-4 uppercase;
+}
+
+.container-pane {
+  @apply container px-20 mx-auto;
+}
+
+.ep-btn {
+  @apply bg-accent px-20 py-4 font-bold text-2xl rounded-md hover:bg-cream transition-colors;
+}
+
+form {
+  @apply flex flex-col gap-5 place-items-center mt-16 border-2 py-10 bg-primary rounded-3xl;
+}
+
+input {
+  @apply w-96 h-16 p-3 rounded-md;
 }
 </style>
