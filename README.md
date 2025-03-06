@@ -2,7 +2,13 @@
 
 ## Overview
 
-Welcome to **Eleventh & Pemberton**! 🌟 We’re a company focused on **investing in your legacy**. Our mission is simple: we buy and invest in small businesses to help them grow and succeed, creating lasting impact. Our goal is to build a future where small businesses thrive with the right resources and support.
+Welcome to Holdings Company! 👩‍💻 This project is a portfolio site for Eleventh & Pemberton, showcasing our mission to invest in your legacy by supporting small businesses. As the developer, I’ve built this site using modern tools and technologies to ensure it’s fast, responsive, and easy to maintain.
+
+The site is built with Vue.js for a dynamic frontend, Vite for a fast build process, and Tailwind CSS combined with DaisyUI for a clean, customizable UI. The goal is to create a smooth user experience while highlighting the core values and services of the company.
+
+From a technical standpoint, I’ve focused on delivering a performance-first approach, ensuring that the site is lightweight and runs smoothly across all devices. I’ve also implemented smooth scrolling for seamless navigation and a modern design that aligns with the company’s brand.
+
+This project is hosted on Vercel to take advantage of its fast deployment and serverless functions. I’m excited to continue evolving this site as the company grows, integrating new features and enhancements along the way!
 
 ### Motto
 
