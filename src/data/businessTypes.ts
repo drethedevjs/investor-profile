@@ -50,7 +50,7 @@ const businessTypes = [
     alt: "A technician servicing an air conditioning unit",
   },
   {
-    imageSrc: "/images/csra-holdings-company-printing-copying.jpg",
+    imageSrc: "/images/csra-holdings-company-printing.jpg",
     name: "Printing and Copying Services",
     alt: "A worker operating a high-end printing machine",
   },
@@ -60,22 +60,22 @@ const businessTypes = [
     alt: "A locksmith repairing a door lock",
   },
   {
-    imageSrc: "/images/csra-holdings-company-courier-delivery.jpg",
+    imageSrc: "/images/csra-holdings-company-courier.jpg",
     name: "Courier & Delivery Services",
     alt: "A courier delivering a package to a customer's door",
   },
   {
-    imageSrc: "/images/csra-holdings-company-glass-repair.jpg",
+    imageSrc: "/images/csra-holdings-company-glass.jpg",
     name: "Glass Repair and Replacement",
     alt: "A technician replacing a broken window",
   },
   {
-    imageSrc: "/images/csra-holdings-company-shuttle-services.jpg",
+    imageSrc: "/images/csra-holdings-company-shuttle.jpg",
     name: "Shuttle Services",
     alt: "A shuttle van transporting passengers",
   },
   {
-    imageSrc: "/images/csra-holdings-company-postal-services.jpg",
+    imageSrc: "/images/csra-holdings-company-postal.jpg",
     name: "Postal Services",
     alt: "A postal worker sorting mail in a post office",
   },
