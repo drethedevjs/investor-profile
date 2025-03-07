@@ -4,4 +4,5 @@ export default interface IContactFormData {
   message: string;
   businessName: string;
   website: string;
+  phone: string;
 }
