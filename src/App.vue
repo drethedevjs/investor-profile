@@ -2,6 +2,7 @@
 import AboutPane from "./components/AboutPane.vue";
 import ContactPane from "./components/ContactPane.vue";
 import InvestmentCriteria from "./components/InvestmentCriteria.vue";
+import OurProcessPane from "./components/OurProcessPane.vue";
 import TheFooter from "./components/TheFooter.vue";
 import TheHeader from "./components/TheHeader.vue";
 import businessTypes from "./data/businessTypes";
