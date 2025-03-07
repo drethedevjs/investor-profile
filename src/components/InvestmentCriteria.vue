@@ -1,6 +1,6 @@
 <template>
-  <div id="investment-criteria" class="md:mx-52 mx-10">
-    <div class="md:w-1/2 mx-auto text-center">
+  <div id="investment-criteria" class="lg:mx-52 mx-10">
+    <div class="lg:w-1/2 mx-auto text-center">
       <h2 class="text-neutral">Investment Criteria</h2>
       <p class="text-white">
         We focus on businesses that align with our values and have strong potential for growth. Our
@@ -8,7 +8,7 @@
         Below, you'll find the key factors we consider when evaluating investment opportunities.
       </p>
     </div>
-    <table class="table md:w-1/2 mx-auto">
+    <table class="table lg:w-1/2 mx-auto">
       <tbody>
         <tr>
           <td class="text-right">Sell Price</td>

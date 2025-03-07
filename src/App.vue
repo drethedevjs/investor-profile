@@ -2,7 +2,7 @@
 import { Mail, Phone } from "lucide-vue-next";
 import AboutPane from "./components/AboutPane.vue";
 import InvestmentCriteria from "./components/InvestmentCriteria.vue";
-import OurProcessPane from "./components/OurProcessPane.vue";
+import TheFooter from "./components/TheFooter.vue";
 import TheHeader from "./components/TheHeader.vue";
 import businessTypes from "./data/businessTypes";
 </script>
@@ -32,7 +32,7 @@ import businessTypes from "./data/businessTypes";
     </div>
 
     <div id="business-types" class="container-pane md:my-20 my-10">
-      <div class="md:w-2/3 mx-auto text-center">
+      <div class="lg:w-2/3 mx-auto text-center">
         <h2 class="text-secondary">Types of Businesses</h2>
         <p class="">
           We specialize in investing in businesses that have strong growth potential, committed
@@ -59,17 +59,17 @@ import businessTypes from "./data/businessTypes";
       </div>
 
       <!-- desktop list -->
-      <div class="mt-10 md:grid gap-5 grid-cols-1 md:grid-cols-3 hidden">
+      <div class="mt-10 md:grid gap-5 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 hidden">
         <div
           v-for="bt in businessTypes"
           :key="bt.name"
-          class="card w-full md:w-96 shadow-sm border-2 border-accent"
+          class="card w-full md:w-80 h-52 shadow-sm border-2 border-accent"
         >
           <div class="overflow-hidden h-60">
             <img :src="bt.imageSrc" :alt="bt.alt" class="rounded-t-md w-full h-full object-cover" />
           </div>
           <div class="text-center p-0">
-            <p class="text-primary tracking-widest uppercase m-0">{{ bt.name }}</p>
+            <p class="text-primary tracking-widest uppercase m-0 text-xl">{{ bt.name }}</p>
           </div>
         </div>
       </div>
@@ -85,20 +85,20 @@ import businessTypes from "./data/businessTypes";
         reach out, and let's start the conversation.
       </p>
 
-      <div class="flex flex-row place-content-center gap-20 md:gap-10 mt-20">
+      <div class="flex flex-row place-content-center gap-20 md:gap-10 mt-10">
         <div>
           <a
             href="mailto:info@eleventhandpemberton.com"
             class="flex flex-col items-center text-center"
           >
-            <Mail class="size-16 mb-5 hover:text-neutral" />
-            <p class="tracking-wide hidden md:flex">info@eleventhandpemberton.com</p>
+            <Mail class="icon" />
+            <p class="icon-txt">info@eleventhandpemberton.com</p>
           </a>
         </div>
         <div>
           <a href="tel:7064263022" class="flex flex-col items-center text-center">
-            <Phone class="size-16 mb-5 hover:text-neutral" />
-            <p class="tracking-wide hidden md:flex">760-426-3022</p>
+            <Phone class="icon" />
+            <p class="icon-txt">760-426-3022</p>
           </a>
         </div>
       </div>
@@ -124,9 +124,18 @@ import businessTypes from "./data/businessTypes";
       </form>
     </div>
   </main>
+  <TheFooter />
 </template>
 
 <style scoped>
+.icon {
+  @apply md:size-10 size-16 mb-5 hover:text-neutral;
+}
+
+.icon-txt {
+  @apply tracking-wide hidden md:flex text-xl;
+}
+
 .overlay {
   @apply absolute inset-0 bg-black opacity-25;
 }
@@ -140,7 +149,7 @@ import businessTypes from "./data/businessTypes";
 }
 
 .container-pane {
-  @apply container md:px-20 px-10 mx-auto;
+  @apply container lg:px-20 px-10 mx-auto;
 }
 
 .ep-btn {
@@ -148,7 +157,7 @@ import businessTypes from "./data/businessTypes";
 }
 
 form {
-  @apply flex flex-col gap-5 place-items-center md:mt-16 py-10  md:rounded-3xl;
+  @apply flex flex-col gap-5 place-items-center md:mt-10 py-10 md:rounded-3xl;
 }
 
 input {

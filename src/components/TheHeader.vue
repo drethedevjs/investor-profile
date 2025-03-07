@@ -17,24 +17,28 @@ import HamburgerIcon from "./HamburgerIcon.vue";
             <li><a href="#investment-criteria">Our Criteria</a></li>
             <li><a href="#business-types">Investment Types</a></li>
             <li><a href="#our-process">Our Process</a></li>
+            <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
       </div>
-      <div class="navbar-center flex flex-col">
-        <a class="btn btn-ghost text-8xl">Eleventh & Pemberton</a>
-        <p class="tracking-widest uppercase font-thin">holdings</p>
+      <div class="navbar-center">
+        <a class="font-bold md:text-4xl text-3xl flex flex-col text-center" href="/">
+          Eleventh & Pemberton
+
+          <p class="tracking-widest uppercase font-thin">holdings</p>
+        </a>
       </div>
       <div class="navbar-end">
-        <div class="pr-40 md:flex hidden">
+        <div class="xl:pr-40 pr-10 gap-10 md:flex hidden">
           <a
             href="mailto:info@eleventhandpemberton.com"
             class="contact-link"
             data-tip="info@eleventhandpemberton.com"
           >
-            <Mail class="scale-150" />
+            <Mail class="size-8" />
           </a>
           <a href="tel:7064263022" class="contact-link" data-tip="706-426-3022">
-            <Phone class="scale-150" />
+            <Phone class="size-8" />
           </a>
         </div>
       </div>
@@ -43,7 +47,7 @@ import HamburgerIcon from "./HamburgerIcon.vue";
 </template>
 
 <style scoped>
-a {
+li > a {
   @apply text-3xl px-10 py-5;
 }
 

@@ -1,6 +1,6 @@
 <template>
   <div id="about-pane">
-    <div class="md:w-1/3">
+    <div class="lg:w-1/3">
       <div class="flex flex-col">
         <img
           src="/images/ep-holdings-president.jpeg"
@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <div class="md:w-2/3">
+    <div class="lg:w-2/3">
       <h2>About Us</h2>
       <p>
         At Eleventh & Pemberton, we believe in investing in your legacy. We're not just about
@@ -39,6 +39,6 @@
 
 <style scoped>
 #about-pane {
-  @apply my-20 flex md:flex-row flex-col md:gap-20 gap-10;
+  @apply my-20 flex lg:flex-row flex-col md:gap-20 gap-10;
 }
 </style>
