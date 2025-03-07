@@ -26,32 +26,23 @@ const { resetForm, handleSubmit, isSubmitting, errors } = useForm<ContactFormDat
   ),
 });
 
-const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+const submitForm = handleSubmit(async (values: ContactFormData) => {
+  try {
+    const response = await emailService.sendEmail(values);
+    if (!response.isSuccess) throw new Error(response.message);
 
-const submitForm = handleSubmit(
-  async (values: ContactFormData) => {
-    try {
-      const response = await emailService.sendEmail(values);
-      if (!response.isSuccess) throw new Error(response.message);
+    showNotification.value = true;
 
-      showNotification.value = true;
+    setTimeout(() => {
+      showNotification.value = false;
+    }, 5000);
 
-      setTimeout(() => {
-        showNotification.value = false;
-      }, 5000);
-
-      resetForm();
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.error(
-        error?.message ?? "There was an issue with sending the form. Please try again.",
-      );
-    }
-
-    scrollToTop();
-  },
-  () => scrollToTop(),
-);
+    resetForm();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.error(error?.message ?? "There was an issue with sending the form. Please try again.");
+  }
+});
 </script>
 
 <template>
@@ -118,8 +109,8 @@ const submitForm = handleSubmit(
 
         <div class="input-field-container">
           <Field
-            name="business-name"
-            id="business-name"
+            name="businessName"
+            id="businessName"
             v-model.lazy.trim="formData.businessName"
             placeholder="Business Name"
           />
@@ -150,7 +141,7 @@ const submitForm = handleSubmit(
         <small class="error-message">{{ errors.message }}</small>
       </div>
 
-      <button class="ep-btn" :disabled="isSubmitting">Send</button>
+      <button type="submit" class="ep-btn" :disabled="isSubmitting">Send</button>
     </form>
   </div>
 </template>
