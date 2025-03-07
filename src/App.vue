@@ -85,30 +85,30 @@ import businessTypes from "./data/businessTypes";
         reach out, and let's start the conversation.
       </p>
 
-      <div class="flex place-content-center gap-10 scale-150 mt-20">
+      <div class="flex flex-row place-content-center gap-20 md:gap-10 mt-20">
         <div>
           <a
             href="mailto:info@eleventhandpemberton.com"
             class="flex flex-col items-center text-center"
           >
-            <Mail class="scale-150 mb-5 hover:text-neutral" />
-            <p class="tracking-wide">info@eleventhandpemberton.com</p>
+            <Mail class="size-16 mb-5 hover:text-neutral" />
+            <p class="tracking-wide hidden md:flex">info@eleventhandpemberton.com</p>
           </a>
         </div>
         <div>
           <a href="tel:7064263022" class="flex flex-col items-center text-center">
-            <Phone class="scale-150 mb-5 hover:text-neutral" />
-            <p class="tracking-wide">760-426-3022</p>
+            <Phone class="size-16 mb-5 hover:text-neutral" />
+            <p class="tracking-wide hidden md:flex">760-426-3022</p>
           </a>
         </div>
       </div>
 
       <form>
-        <div class="flex gap-5">
+        <div class="flex md:flex-row flex-col gap-5">
           <input type="text" placeholder="First and Last Name" class="" />
           <input type="tel" placeholder="Phone" class="" />
         </div>
-        <div class="flex gap-5">
+        <div class="flex md:flex-row flex-col gap-5">
           <input type="email" placeholder="Email" class="" />
           <input type="text" placeholder="Business Name" class="" />
         </div>
@@ -116,7 +116,7 @@ import businessTypes from "./data/businessTypes";
         <input type="url" placeholder="Business Website" />
         <textarea
           placeholder="Tell us about you and your business"
-          class="w-1/2 rounded-lg p-3"
+          class="md:w-1/2 w-full rounded-lg p-3 border-accent border-2"
           rows="6"
         ></textarea>
 
@@ -148,10 +148,10 @@ import businessTypes from "./data/businessTypes";
 }
 
 form {
-  @apply flex flex-col gap-5 place-items-center mt-16 border-2 py-10 bg-primary rounded-3xl;
+  @apply flex flex-col gap-5 place-items-center md:mt-16 py-10  md:rounded-3xl;
 }
 
 input {
-  @apply w-96 h-16 p-3 rounded-md;
+  @apply w-96 h-16 p-3 rounded-md border-2 border-accent;
 }
 </style>

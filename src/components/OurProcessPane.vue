@@ -3,7 +3,7 @@ import process from "@/data/process";
 </script>
 <template>
   <div id="our-process" class="bg-cream text-primary py-20">
-    <div class="md:w-2/3 px-5 mx-auto text-center">
+    <div class="md:w-2/3 px-10 mx-auto text-center">
       <h2 class="text-secondary">Our Investment Process</h2>
       <p>
         We believe in making the investment process straightforward and transparent. Whether you're
