@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Mail, Phone } from "lucide-vue-next";
 import AboutPane from "./components/AboutPane.vue";
+import ContactPane from "./components/ContactPane.vue";
 import InvestmentCriteria from "./components/InvestmentCriteria.vue";
 import TheFooter from "./components/TheFooter.vue";
 import TheHeader from "./components/TheHeader.vue";
@@ -77,65 +77,12 @@ import businessTypes from "./data/businessTypes";
 
     <OurProcessPane />
 
-    <div id="contact" class="container-pane text-center my-20">
-      <h2>Contact Us</h2>
-      <p>
-        Have a business opportunity or questions about our investment process? We'd love to hear
-        from you! Whether you're looking to sell, partner, or simply learn more about what we do,
-        reach out, and let's start the conversation.
-      </p>
-
-      <div class="flex flex-row place-content-center gap-20 md:gap-10 mt-10">
-        <div>
-          <a
-            href="mailto:info@eleventhandpemberton.com"
-            class="flex flex-col items-center text-center"
-          >
-            <Mail class="icon" />
-            <p class="icon-txt">info@eleventhandpemberton.com</p>
-          </a>
-        </div>
-        <div>
-          <a href="tel:7064263022" class="flex flex-col items-center text-center">
-            <Phone class="icon" />
-            <p class="icon-txt">760-426-3022</p>
-          </a>
-        </div>
-      </div>
-
-      <form>
-        <div class="flex md:flex-row flex-col gap-5">
-          <input type="text" placeholder="First and Last Name" class="" />
-          <input type="tel" placeholder="Phone" class="" />
-        </div>
-        <div class="flex md:flex-row flex-col gap-5">
-          <input type="email" placeholder="Email" class="" />
-          <input type="text" placeholder="Business Name" class="" />
-        </div>
-
-        <input type="url" placeholder="Business Website" />
-        <textarea
-          placeholder="Tell us about you and your business"
-          class="md:w-1/2 w-full rounded-lg p-3 border-accent border-2"
-          rows="6"
-        ></textarea>
-
-        <button class="ep-btn">Send</button>
-      </form>
-    </div>
+    <ContactPane />
   </main>
   <TheFooter />
 </template>
 
 <style scoped>
-.icon {
-  @apply md:size-10 size-16 mb-5 hover:text-neutral;
-}
-
-.icon-txt {
-  @apply tracking-wide hidden md:flex text-xl;
-}
-
 .overlay {
   @apply absolute inset-0 bg-black opacity-25;
 }
@@ -146,21 +93,5 @@ import businessTypes from "./data/businessTypes";
 
 #tagline {
   @apply md:text-5xl text-xl tracking-widest text-accent drop-shadow-lg mt-4 uppercase;
-}
-
-.container-pane {
-  @apply container lg:px-20 px-10 mx-auto;
-}
-
-.ep-btn {
-  @apply bg-accent px-20 py-4 font-bold text-2xl rounded-md hover:bg-white transition-colors;
-}
-
-form {
-  @apply flex flex-col gap-5 place-items-center md:mt-10 py-10 md:rounded-3xl;
-}
-
-input {
-  @apply w-96 h-16 p-3 rounded-md border-2 border-accent;
 }
 </style>

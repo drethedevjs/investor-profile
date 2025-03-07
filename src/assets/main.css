@@ -19,3 +19,9 @@ p {
 html {
   scroll-behavior: smooth;
 }
+
+@layer {
+  .container-pane {
+    @apply container lg:px-20 px-10 mx-auto;
+  }
+}
