@@ -1,11 +1,11 @@
 import type ISendEmailRequestBody from "@/interfaces/ISendEmailRequestBody.ts";
 import axios from "axios";
 
-// const BASE_URL =
-//   import.meta.env.MODE === "development"
-//     ? "http://localhost:2222"
-//     : "https://csra-web-services.vercel.app";
-const BASE_URL = "https://csra-web-services.vercel.app";
+const BASE_URL =
+  import.meta.env.MODE === "development"
+    ? "http://localhost:2222"
+    : "https://csra-web-services.vercel.app";
+// const BASE_URL = "https://csra-web-services.vercel.app";
 
 interface CtvResponse {
   isSuccess: boolean;

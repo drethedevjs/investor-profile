@@ -7,8 +7,9 @@
         href="https://csra-web-services.vercel.app/"
         target="_blank"
         class="text-secondary font-medium hover:text-primary"
-        >CSRA Web Services</a
       >
+        CSRA Web Services
+      </a>
     </p>
   </footer>
 </template>

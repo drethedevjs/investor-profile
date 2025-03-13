@@ -1,0 +1,21 @@
+import DealView from "@/views/DealView.vue";
+import HomeView from "@/views/HomeView.vue";
+import { createRouter, createWebHistory } from "vue-router";
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: "/",
+      name: "home",
+      component: HomeView,
+    },
+    {
+      path: "/deals",
+      name: "deals",
+      component: DealView,
+    },
+  ],
+});
+
+export default router;
