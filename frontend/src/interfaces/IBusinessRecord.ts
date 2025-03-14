@@ -33,8 +33,33 @@ type BusinessType =
   | "Locksmith"
   | "Courier & Delivery Services"
   | "Glass Repair and Replacement"
+  | "Motel"
   | "Auto Repair"
   | "Shuttle Services"
   | "Postal Services"
   | "Transportation"
-  | "Car Wash";
+  | "Car Wash"
+  | null;
+
+export const businessTypeArray: BusinessType[] = [
+  "Laundromat",
+  "Property Management",
+  "Plumbing",
+  "Maintenance",
+  "Digital Marketing",
+  "Motel",
+  "Flooring",
+  "Commercial Signage",
+  "Self Storage",
+  "HVAC Services",
+  "Printing and Copying Services",
+  "Locksmith",
+  "Courier & Delivery Services",
+  "Glass Repair and Replacement",
+  "Auto Repair",
+  "Shuttle Services",
+  "Postal Services",
+  "Transportation",
+  "Car Wash",
+  null,
+];
