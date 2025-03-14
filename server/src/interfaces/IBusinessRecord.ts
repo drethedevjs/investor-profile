@@ -27,6 +27,7 @@ type BusinessType =
   | "Digital Marketing"
   | "Flooring"
   | "Commercial Signage"
+  | "Motel"
   | "Self Storage"
   | "HVAC Services"
   | "Printing and Copying Services"
