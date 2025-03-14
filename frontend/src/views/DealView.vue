@@ -1,11 +1,9 @@
 <script lang="ts" setup>
 import BusinessFormData from "@/classes/BusinessFormData";
-import ContactFormData from "@/classes/ContactFormData";
 import Outcome from "@/classes/Outcome";
 import type { IBusinessRecord } from "@/interfaces/IBusinessRecord";
 import { businessTypeArray } from "@/interfaces/IBusinessRecord";
 import businessService from "@/services/businessService";
-import emailService from "@/services/emailService";
 import { toTypedSchema } from "@vee-validate/yup";
 import moment from "moment";
 import { Field, useForm } from "vee-validate";
@@ -41,32 +39,32 @@ const openBusinessModal = (record: IBusinessRecord) => {
 const formData = reactive<BusinessFormData>(new BusinessFormData());
 const showNotification = ref<boolean>(false);
 
-const { resetForm, handleSubmit, isSubmitting, errors } = useForm<ContactFormData>({
+const { resetForm, handleSubmit, isSubmitting, errors } = useForm<BusinessFormData>({
   validationSchema: toTypedSchema(
     object({
-      name: string()
+      business: string()
         .transform((x) => x.trim())
         .required("Name is required"),
-      email: string().email().required("Must be a valid email address."),
-      message: string().min(15, "Must be at least 15 characters."),
-      businessName: string()
-        .transform((x) => x.trim())
-        .required("Must be include business name."),
+      // email: string().email().required("Must be a valid email address."),
+      // message: string().min(15, "Must be at least 15 characters."),
+      // businessName: string()
+      //   .transform((x) => x.trim())
+      //   .required("Must be include business name."),
     }),
   ),
 });
 
-const submitForm = handleSubmit(async (values: ContactFormData) => {
+const submitForm = handleSubmit(async (values: BusinessFormData) => {
   try {
-    const response = await emailService.sendEmail(values);
-    if (!response.isSuccess) throw new Error(response.message);
+    // const response = await businessService.sendEmail(values);
+    // if (!response.isSuccess) throw new Error(response.message);
 
-    showNotification.value = true;
+    // showNotification.value = true;
 
-    setTimeout(() => {
-      showNotification.value = false;
-    }, 5000);
-
+    // setTimeout(() => {
+    //   showNotification.value = false;
+    // }, 5000);
+    alert("boom goes the dynamite");
     resetForm();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -161,7 +159,7 @@ const updateDate = (newValue: string) => {
   <dialog id="business_form_data" class="modal">
     <div class="modal-box w-11/12 max-w-5xl">
       <h3 class="text-7xl font-bold mb-5">{{ selectedBusiness?.business }}</h3>
-      <form>
+      <form @submit.prevent="submitForm">
         <div class="flex md:flex-row flex-col gap-4">
           <div class="w-1/2 flex flex-col">
             <label for="business-name">Name</label>
@@ -315,7 +313,7 @@ const updateDate = (newValue: string) => {
           />
           <label for="notes">On Market?</label>
         </div>
-        <button class="ep-btn w-full mt-4" type="submit">Save</button>
+        <button class="ep-btn w-full mt-4" :disabled="isSubmitting" type="submit">Save</button>
       </form>
     </div>
     <form method="dialog" class="modal-backdrop">
