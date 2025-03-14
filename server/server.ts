@@ -5,7 +5,7 @@ const app = express();
 const port = 2222;
 
 const corsOptions = {
-  origin: ["http://localhost:5173", "https://eleventhandpemberton.com"],
+  origin: ["http://localhost:5173", "https://www.eleventhandpemberton.com"],
   methods: ["GET", "PUT", "POST", "DELETE"]
 };
 
