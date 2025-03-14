@@ -155,10 +155,6 @@ input {
   @apply w-full h-16 p-3 rounded-md border-2 border-accent;
 }
 
-.ep-btn {
-  @apply bg-accent px-20 py-4 font-bold text-2xl rounded-md hover:bg-white border-accent border-2 transition-colors;
-}
-
 .icon {
   @apply md:size-10 size-16 mb-5 hover:text-neutral;
 }
