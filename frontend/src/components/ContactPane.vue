@@ -141,7 +141,10 @@ const submitForm = handleSubmit(async (values: ContactFormData) => {
         <small class="error-message">{{ errors.message }}</small>
       </div>
 
-      <button type="submit" class="ep-btn" :disabled="isSubmitting">Send</button>
+      <button type="submit" class="ep-btn disabled:bg-neutral" :disabled="isSubmitting">
+        <span class="loading loading-dots loading-xl mr-5" v-show="isSubmitting"></span>
+        <span v-show="!isSubmitting">Send</span>
+      </button>
     </form>
   </div>
 </template>
