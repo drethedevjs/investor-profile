@@ -5,7 +5,7 @@ import axios from "axios";
 const BASE_URL =
   import.meta.env.MODE === "development"
     ? "http://localhost:2222"
-    : "https://csra-web-services.vercel.app";
+    : "https://csra-web-express-server.vercel.app";
 
 const emailService = {
   sendEmail: async (formData: ISendEmailRequestBody): Promise<IEPSimpleResponse> => {
