@@ -1,6 +1,6 @@
 import cors from "cors";
 import express from "express";
-import mongoose from "mongoose";
+// import mongoose from "mongoose";
 import businessRouter from "./src/routes/businessRouter.js";
 const app = express();
 const port = 2222;
