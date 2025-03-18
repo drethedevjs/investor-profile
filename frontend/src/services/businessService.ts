@@ -5,7 +5,8 @@ import axios from "axios";
 const BASE_URL =
   import.meta.env.MODE === "development"
     ? "http://localhost:2222"
-    : "https://eleventhandpemberton.com";
+    : "https://investor-profile.vercel.app";
+// : "https://eleventhandpemberton.com";
 
 const businessService = {
   getBusinessRecords: async (): Promise<IEPResponse<IBusinessRecord[]>> => {
