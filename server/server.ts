@@ -11,7 +11,7 @@ const corsOptions = {
     "https://www.eleventhandpemberton.com",
     "https://eleventhandpemberton.com"
   ],
-  methods: ["GET", "PUT", "POST", "DELETE"],
+  methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
   preflightContinue: false,
   optionsSuccessStatus: 200
 };
