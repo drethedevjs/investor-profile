@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <p>Copyright © {{ new Date().getFullYear() }} Eleventh & Pemberton</p>
+    <p>Copyright © 2023 - {{ new Date().getFullYear() }} Eleventh & Pemberton</p>
     <p>
       Powered by
       <a
