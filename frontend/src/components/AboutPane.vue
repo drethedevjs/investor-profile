@@ -1,3 +1,6 @@
+<script lang="ts" setup>
+import { RouterLink } from "vue-router";
+</script>
 <template>
   <div id="about-pane">
     <div class="lg:w-1/3">
@@ -33,6 +36,9 @@
         you're investing in your future and building the foundation for a legacy that will endure.
         Let's grow together.
       </p>
+      <RouterLink to="/profile">
+        <button class="ep-btn">Investor Profile</button>
+      </RouterLink>
     </div>
   </div>
 </template>
