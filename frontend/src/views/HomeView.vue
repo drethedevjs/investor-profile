@@ -14,7 +14,7 @@ import businessTypes from "@/data/businessTypes";
     />
     <div class="overlay flex md:hidden"></div>
     <div id="hero-txt">
-      <h1>Investing in Your Legacy</h1>
+      <h1 id="hero-header">Investing in Your Legacy</h1>
       <p id="tagline">We buy and invest in small businesses</p>
     </div>
   </div>

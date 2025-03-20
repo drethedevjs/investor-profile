@@ -11,7 +11,8 @@ import { computed, onBeforeMount, onMounted, reactive, ref } from "vue";
 import { object, string } from "yup";
 
 const outcomes = Object.values(Outcome);
-const businessRecords = ref<IBusinessRecord[]>([]);
+let filteredBusinessRecords = ref<IBusinessRecord[]>([]);
+const businessRecords: IBusinessRecord[] = [];
 const selectedBusiness = ref<IBusinessRecord | null>(null);
 onBeforeMount(() => {
   selectedBusiness.value = new BusinessFormData();
@@ -22,7 +23,8 @@ onMounted(async () => {
     const response = await businessService.getBusinessRecords();
     if (!response.isSuccess) throw new Error("Unable to retrieve business records");
 
-    businessRecords.value = response.data;
+    filteredBusinessRecords.value = response.data;
+    businessRecords.push(...response.data);
   } catch (error) {
     console.log("Unable to retrieve business records: ", error);
   }
@@ -83,12 +85,35 @@ const updateDate = (newValue: string) => {
     selectedBusiness.value.lastContactDate = new Date(newValue);
   }
 };
+
+const search = (e: Event) => {
+  const input = e.target as HTMLInputElement;
+  if (input.value.length !== 0 && input.value.length < 4) return;
+
+  console.log("key: ", input.value);
+  if (!input.value) filteredBusinessRecords.value = businessRecords;
+
+  filteredBusinessRecords.value = businessRecords.filter((br) =>
+    br.business.toLowerCase().includes(input.value.toLowerCase()),
+  );
+};
 </script>
 
 <template>
-  <h1>Deals</h1>
+  <h1 class="text-center my-10">Business Logs</h1>
+  <div class="w-1/2 mx-auto my-10 flex flex-col">
+    <label for="search">Search</label>
+    <Field
+      id="search"
+      name="search"
+      label="Search"
+      placeholder="Search by business name..."
+      @input="search"
+    />
+  </div>
+
   <div class="border-2 w-2/3 overflow-scroll mx-auto">
-    <table class="table table-zebra">
+    <table class="table">
       <thead>
         <tr>
           <th>Business</th>
@@ -108,9 +133,12 @@ const updateDate = (newValue: string) => {
       </thead>
       <tbody>
         <tr
-          v-for="record in businessRecords"
+          v-for="record in filteredBusinessRecords"
           :key="record.business"
-          :class="record.outcome == 'Interested' ? 'bg-green-200 font-semibold' : ''"
+          :class="{
+            'bg-green-200 font-semibold': record.outcome === 'Interested',
+            'bg-red-200 font-semibold': record.outcome === 'Not Interested',
+          }"
           @click="() => openBusinessModal(record)"
         >
           <td class="font-semibold">{{ record.business }}</td>
