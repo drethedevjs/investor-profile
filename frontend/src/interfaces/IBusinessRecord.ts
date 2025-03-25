@@ -1,5 +1,3 @@
-import type Outcome from "@/classes/Outcome";
-
 export interface IBusinessRecord {
   business: string;
   type: BusinessType; // Uses predefined list of business types
@@ -16,32 +14,13 @@ export interface IBusinessRecord {
   cashFlow: number | null; // Nullable in case cash flow is unknown
 }
 
-type OutcomeType = (typeof Outcome)[keyof typeof Outcome];
+export type OutcomeType = { name: "" };
 
-// Predefined list of common businesses to acquire
-type BusinessType =
-  | "Laundromat"
-  | "Property Management"
-  | "Plumbing"
-  | "Maintenance"
-  | "Digital Marketing"
-  | "Flooring"
-  | "Commercial Signage"
-  | "Self Storage"
-  | "HVAC Services"
-  | "Printing and Copying Services"
-  | "Locksmith"
-  | "Courier & Delivery Services"
-  | "Glass Repair and Replacement"
-  | "Motel"
-  | "Auto Repair"
-  | "Shuttle Services"
-  | "Postal Services"
-  | "Transportation"
-  | "Car Wash"
-  | null;
+export type BusinessType = {
+  name: string;
+};
 
-export const businessTypeArray: BusinessType[] = [
+export const businessTypeArray: string[] = [
   "Laundromat",
   "Property Management",
   "Plumbing",
@@ -61,5 +40,4 @@ export const businessTypeArray: BusinessType[] = [
   "Postal Services",
   "Transportation",
   "Car Wash",
-  null,
 ];

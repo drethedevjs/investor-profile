@@ -4,6 +4,7 @@ export default class Outcome {
   static Email = "Email";
   static NotInterested = "Not Interested";
   static Interested = "Interested";
+  static CallBack = "Call Back";
   static NullValue = null;
   static WebsiteMessage = "Sent message through website.";
 }

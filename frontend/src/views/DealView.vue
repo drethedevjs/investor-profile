@@ -2,31 +2,34 @@
 import BusinessFormData from "@/classes/BusinessFormData";
 import Outcome from "@/classes/Outcome";
 import type { IBusinessRecord } from "@/interfaces/IBusinessRecord";
-import { businessTypeArray } from "@/interfaces/IBusinessRecord";
 import businessService from "@/services/businessService";
 import { toTypedSchema } from "@vee-validate/yup";
 import moment from "moment";
 import { Field, useForm } from "vee-validate";
-import { computed, onBeforeMount, onMounted, reactive, ref } from "vue";
+import { computed, inject, onBeforeMount, onMounted, reactive, ref } from "vue";
 import { object, string } from "yup";
 
-const outcomes = Object.values(Outcome);
 let filteredBusinessRecords = ref<IBusinessRecord[]>([]);
-const businessRecords: IBusinessRecord[] = [];
+const masterBusinessRecords: IBusinessRecord[] = [];
+let outcomes: string[] = [];
+let businessTypes: string[] = [];
 const selectedBusiness = ref<IBusinessRecord | null>(null);
+const showErrorToast: ((msg: string) => void) | undefined = inject("showErrorToast");
+
 onBeforeMount(() => {
-  selectedBusiness.value = new BusinessFormData();
+  clearData();
 });
 
 onMounted(async () => {
   try {
-    const response = await businessService.getBusinessRecords();
-    if (!response.isSuccess) throw new Error("Unable to retrieve business records");
-
-    filteredBusinessRecords.value = response.data;
-    businessRecords.push(...response.data);
+    const { businessRecords, callOutcomes, types } = await businessService.getListData();
+    filteredBusinessRecords.value = businessRecords;
+    masterBusinessRecords.push(...businessRecords);
+    outcomes = callOutcomes.map((o) => o.name);
+    businessTypes = types.map((t) => t.name);
   } catch (error) {
-    console.log("Unable to retrieve business records: ", error);
+    console.error(error);
+    if (error) showErrorToast!(error.toString());
   }
 });
 
@@ -58,7 +61,7 @@ const { resetForm, handleSubmit, isSubmitting, errors } = useForm<BusinessFormDa
 
 const submitForm = handleSubmit(async (values: BusinessFormData) => {
   try {
-    // const response = await businessService.sendEmail(values);
+    // const response = await businessService.saveBusinessRecord(values);
     // if (!response.isSuccess) throw new Error(response.message);
 
     // showNotification.value = true;
@@ -90,10 +93,9 @@ const search = (e: Event) => {
   const input = e.target as HTMLInputElement;
   if (input.value.length !== 0 && input.value.length < 4) return;
 
-  console.log("key: ", input.value);
-  if (!input.value) filteredBusinessRecords.value = businessRecords;
+  if (!input.value) filteredBusinessRecords.value = masterBusinessRecords;
 
-  filteredBusinessRecords.value = businessRecords.filter((br) =>
+  filteredBusinessRecords.value = masterBusinessRecords.filter((br) =>
     br.business.toLowerCase().includes(input.value.toLowerCase()),
   );
 };
@@ -112,7 +114,7 @@ const search = (e: Event) => {
     />
   </div>
 
-  <div class="border-2 w-2/3 overflow-scroll mx-auto">
+  <div class="border-2 w-11/12 overflow-scroll mx-auto">
     <table class="table">
       <thead>
         <tr>
@@ -136,13 +138,13 @@ const search = (e: Event) => {
           v-for="record in filteredBusinessRecords"
           :key="record.business"
           :class="{
-            'bg-green-200 font-semibold': record.outcome === 'Interested',
-            'bg-red-200 font-semibold': record.outcome === 'Not Interested',
+            'bg-green-200 font-semibold': record.outcome?.name == Outcome.Interested,
+            'bg-red-200 font-semibold': record.outcome?.name === Outcome.NotInterested,
           }"
           @click="() => openBusinessModal(record)"
         >
           <td class="font-semibold">{{ record.business }}</td>
-          <td>{{ record.type }}</td>
+          <td>{{ record.type.name }}</td>
           <td class="min-w-40">{{ record.owner }}</td>
           <td class="min-w-40">
             <a class="link" :href="'tel:' + record.phone">{{ record.phone }}</a>
@@ -156,14 +158,18 @@ const search = (e: Event) => {
           </td>
           <td
             :class="
-              moment(record.lastContactDate).fromNow().includes('days')
+              moment(record.lastContactDate).fromNow().includes('days') &&
+              record.outcome?.name !== Outcome.NotInterested
                 ? 'bg-neutral text-white font-semibold'
                 : ''
             "
           >
             <div
               class="inline-grid *:[grid-area:1/1]"
-              v-if="moment(record.lastContactDate).fromNow().includes('days')"
+              v-if="
+                moment(record.lastContactDate).fromNow().includes('days') &&
+                record.outcome?.name !== Outcome.NotInterested
+              "
             >
               <div class="status status-success animate-ping"></div>
               <div class="status status-success"></div>
@@ -171,7 +177,7 @@ const search = (e: Event) => {
 
             {{ moment(record.lastContactDate).format("MM/DD/yyyy") }}
           </td>
-          <td>{{ record.outcome }}</td>
+          <td>{{ record.outcome?.name }}</td>
           <td class="min-w-96">{{ record.notes }}</td>
           <td :class="record.onMarket ? 'bg-secondary text-white' : ''">
             {{ record.onMarket ? "Yes" : "No" }}
@@ -217,11 +223,11 @@ const search = (e: Event) => {
             name="type"
             label="Business Type"
             as="select"
-            v-model="selectedBusiness!.type"
+            v-model="selectedBusiness!.type.name"
             class="select w-full"
           >
             <option value="null" disabled>--select one --</option>
-            <option v-for="(bizType, idx) in businessTypeArray" :key="idx" :value="bizType">
+            <option v-for="(bizType, idx) in businessTypes" :key="idx" :value="bizType">
               {{ bizType }}
             </option>
           </Field>
@@ -287,12 +293,12 @@ const search = (e: Event) => {
             id="outcome"
             name="outcome"
             label="Outcome"
-            v-model="selectedBusiness!.outcome"
+            v-model="selectedBusiness!.outcome.name"
             class="w-full"
             as="select"
           >
-            <option value="null">-- select option --</option>
-            <option v-for="outcome in outcomes" value="outcome">{{ outcome }}</option>
+            <option value="">-- select option --</option>
+            <option v-for="outcome in outcomes" :value="outcome">{{ outcome }}</option>
           </Field>
         </div>
         <div class="flex flex-col mt-5">
@@ -359,13 +365,12 @@ th {
 }
 
 input,
-select,
 textarea {
   @apply border-2 border-accent rounded-md p-3;
 }
 
 select {
-  @apply h-10;
+  @apply border-2 border-accent rounded-md p-3 h-16;
 }
 
 label {

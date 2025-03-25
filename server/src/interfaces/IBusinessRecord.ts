@@ -1,4 +1,5 @@
-import type Outcome from "@/classes/Outcome.js";
+import BusinessType from "../classes/BusinessType.js";
+import type Outcome from "../classes/Outcome.js";
 
 export interface IBusinessRecord {
   business: string;
@@ -16,26 +17,26 @@ export interface IBusinessRecord {
   cashFlow: number | null; // Nullable in case cash flow is unknown
 }
 
-type OutcomeType = (typeof Outcome)[keyof typeof Outcome];
+export type OutcomeType = (typeof Outcome)[keyof typeof Outcome];
 
 // Predefined list of common businesses to acquire
-type BusinessType =
-  | "Laundromat"
-  | "Property Management"
-  | "Plumbing"
-  | "Maintenance"
-  | "Digital Marketing"
-  | "Flooring"
-  | "Commercial Signage"
-  | "Motel"
-  | "Self Storage"
-  | "HVAC Services"
-  | "Printing and Copying Services"
-  | "Locksmith"
-  | "Courier & Delivery Services"
-  | "Glass Repair and Replacement"
-  | "Auto Repair"
-  | "Shuttle Services"
-  | "Postal Services"
-  | "Transportation"
-  | "Car Wash";
+// export type BusinessType =
+//   | "Laundromat"
+//   | "Property Management"
+//   | "Plumbing"
+//   | "Maintenance"
+//   | "Digital Marketing"
+//   | "Flooring"
+//   | "Commercial Signage"
+//   | "Motel"
+//   | "Self Storage"
+//   | "HVAC Services"
+//   | "Printing and Copying Services"
+//   | "Locksmith"
+//   | "Courier & Delivery Services"
+//   | "Glass Repair and Replacement"
+//   | "Auto Repair"
+//   | "Shuttle Services"
+//   | "Postal Services"
+//   | "Transportation"
+//   | "Car Wash";
