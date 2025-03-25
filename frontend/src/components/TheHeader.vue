@@ -12,7 +12,6 @@ import HamburgerIcon from "./HamburgerIcon.vue";
             tabindex="0"
             class="text-xl menu menu-sm dropdown-content bg-accent rounded-box z-1 mt-3 p-2 shadow text-primary"
           >
-            <li><a>Home</a></li>
             <li><a href="#about-pane">About</a></li>
             <li><a href="#investment-criteria">Our Criteria</a></li>
             <li><a href="#business-types">Investment Types</a></li>

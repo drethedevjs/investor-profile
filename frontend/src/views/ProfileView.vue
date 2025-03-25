@@ -124,17 +124,15 @@ import { Mail, Phone } from "lucide-vue-next";
           </tr>
           <tr>
             <td class="header-row">Location Preference(s)</td>
-            <td>
-              The state of Georgia and South Carolina. The closer to the CSRA area, the better.
-            </td>
+            <td>Georgia and South Carolina. The closer to the CSRA area, the better.</td>
           </tr>
           <tr>
             <td class="header-row">Company Stage</td>
-            <td>Established businesses. 5 years and counting.</td>
+            <td>Established businesses. At least 5 years old.</td>
           </tr>
           <tr>
             <td class="header-row">Financial Metrics</td>
-            <td>Profitable and cash flows ~$100,000</td>
+            <td>Profitable and cash flows (or SDE) ~$100,000+</td>
           </tr>
         </tbody>
       </table>
