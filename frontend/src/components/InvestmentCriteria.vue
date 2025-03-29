@@ -7,6 +7,10 @@
         investments are driven by a commitment to sustainability, innovation, and long-term success.
         Below, you'll find the key factors we consider when evaluating investment opportunities.
       </p>
+      <p class="text-neutral">
+        Note: This criteria is an ideal case and not a hard and fast rule. I am flexible on th
+        following pricing and terms.
+      </p>
       <table class="table">
         <tbody>
           <tr>
