@@ -1,20 +1,22 @@
-import { IBusinessRecord } from "../interfaces/IBusinessRecord.js";
+import { Types } from "mongoose";
+import Business from "../classes/Business.js";
+import { IBusinessRecord, IServerBusinessRecord } from "../interfaces/IBusinessRecord.js";
 import { IBusinessType } from "../interfaces/IBusinessType.js";
+import IEPResponse from "../interfaces/IEPResponse.js";
+import { IOutcome } from "../interfaces/IOutcome.js";
 import BusinessRecord from "../models/business.js";
 import BusinessType from "../models/businessType.js";
 import Outcome from "../models/outcome.js";
 
 const businessService = {
-  getBusinesses: async () => {
+  getBusinessById: async (id: string) => {
     try {
-      const businessRecords = await BusinessRecord.find().populate([
+      const businessRecords = await BusinessRecord.findById(id).populate([
         {
           path: "outcome",
-          select: "name -_id",
         },
         {
           path: "type",
-          select: "name -_id",
         },
       ]);
 
@@ -32,13 +34,73 @@ const businessService = {
       };
     }
   },
+  getBusinesses: async () => {
+    try {
+      const businessRecords = await BusinessRecord.find<IBusinessRecord>().populate([
+        {
+          path: "outcome",
+        },
+        {
+          path: "type",
+        },
+      ]);
+
+      return {
+        isSuccess: true,
+        data: businessRecords,
+        message: "",
+      };
+    } catch (err: any) {
+      console.error(err);
+      return {
+        isSuccess: false,
+        data: null,
+        message: err,
+      };
+    }
+  },
+  updateBusinessRecord: async (
+    record: IServerBusinessRecord,
+  ): Promise<IEPResponse<IBusinessRecord | null>> => {
+    const business = Business.fromModel(record);
+    try {
+      let businessRecord = await BusinessRecord.findByIdAndUpdate(
+        new Types.ObjectId(business._id),
+        business,
+        { new: true },
+      ).populate([
+        {
+          path: "outcome",
+        },
+        {
+          path: "type",
+        },
+      ]);
+
+      if (!businessRecord) throw new Error("Cannot find business record.");
+
+      console.log(`${business.business} business record was updated!`);
+
+      return {
+        isSuccess: true,
+        data: Business.fromModel(businessRecord),
+        message: "",
+      };
+    } catch (err: any) {
+      return {
+        isSuccess: false,
+        data: null,
+        message: err,
+      };
+    }
+  },
   saveBusiness: async (record: IBusinessRecord) => {
     const businessRecord = new BusinessRecord(record);
     await businessRecord.save();
   },
-  saveBusinesses: async (records: IBusinessRecord[]) => {
+  saveBusinessTypes: async (records: IBusinessType[]) => {
     try {
-      await BusinessRecord.insertMany(records);
+      await BusinessType.insertMany(records);
 
       return {
         isSuccess: true,
@@ -54,13 +116,35 @@ const businessService = {
       };
     }
   },
-  saveBusinessTypes: async (records: IBusinessType[]) => {
+  getOutcomeById: async (id: string): Promise<IEPResponse<IOutcome | null>> => {
     try {
-      await BusinessType.insertMany(records);
+      let outcome = await Outcome.findById<IOutcome>(id);
+
+      if (!outcome) throw new Error(`Could not find outcome with id: ${id};`);
 
       return {
         isSuccess: true,
+        data: outcome,
+        message: "Worked",
+      };
+    } catch (err: any) {
+      console.error(err);
+      return {
+        isSuccess: false,
         data: null,
+        message: err,
+      };
+    }
+  },
+  getBusinessTypeById: async (id: string): Promise<IEPResponse<IBusinessType | null>> => {
+    try {
+      let type = await BusinessType.findById<IBusinessType>(id);
+
+      if (!type) throw new Error(`Could not find business type with id: ${id};`);
+
+      return {
+        isSuccess: true,
+        data: type,
         message: "Worked",
       };
     } catch (err: any) {

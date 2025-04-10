@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ShieldX } from "lucide-vue-next";
+import { CheckCircle, ShieldX } from "lucide-vue-next";
 import { provide, ref } from "vue";
 import { RouterView } from "vue-router";
 import TheFooter from "./components/TheFooter.vue";
@@ -13,7 +13,20 @@ const showErrorToast = (msg: string) => {
   showError.value = true;
 };
 
+let showSuccess = ref<boolean>(false);
+let toastSuccessMsg = ref<string>("");
+
+const showSuccessToast = (msg: string) => {
+  toastSuccessMsg.value = msg;
+  showSuccess.value = true;
+
+  setTimeout(() => {
+    showSuccess.value = false;
+  }, 5000);
+};
+
 provide("showErrorToast", showErrorToast);
+provide("showSuccessToast", showSuccessToast);
 </script>
 
 <template>
@@ -25,6 +38,14 @@ provide("showErrorToast", showErrorToast);
   >
     <ShieldX />
     <span class="font-semibold text-xl">{{ toastErrorMsg }}</span>
+  </div>
+  <div
+    role="alert"
+    class="alert alert-success absolute end-10 drop-shadow-lg mt-8 animate-bounce"
+    v-show="showSuccess"
+  >
+    <CheckCircle />
+    <span class="font-semibold text-xl">{{ toastSuccessMsg }}</span>
   </div>
   <main>
     <RouterView />

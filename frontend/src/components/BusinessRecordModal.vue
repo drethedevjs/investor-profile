@@ -1,52 +1,60 @@
 <script lang="ts" setup>
-import BusinessFormData from "@/classes/BusinessFormData";
+import type { IBusinessType } from "@/interfaces/BusinessType";
+import type { IBusinessRecord } from "@/interfaces/IBusinessRecord";
+import type IEPResponse from "@/interfaces/IEPResponse";
+import type { IOutcome } from "@/interfaces/Outcome";
+import businessService from "@/services/businessService";
 import { toTypedSchema } from "@vee-validate/yup";
 import { Field, useForm } from "vee-validate";
-import { computed, onMounted, reactive } from "vue";
+import { computed, defineEmits, defineProps } from "vue";
 import { object, string } from "yup";
 
-const props = defineProps(["businessRecord", "businessTypes", "outcomes"]);
+const props = defineProps<{
+  businessRecord: IBusinessRecord | null;
+  businessTypes: IBusinessType[];
+  outcomes: IOutcome[];
+}>();
+
+const emit = defineEmits<{
+  (e: "updateBusinessRecord", updatedRecord: IBusinessRecord): void;
+  (e: "saveBusinessRecord", savedRecord: IBusinessRecord): void;
+}>();
 
 const formattedDate = computed(() =>
-  props.businessRecord.value?.lastContactDate
-    ? new Date(props.businessRecord.value.lastContactDate).toISOString().split("T")[0]
+  props.businessRecord?.lastContactDate
+    ? new Date(props.businessRecord.lastContactDate).toISOString().split("T")[0]
     : "",
 );
 
-const formData = reactive<BusinessFormData>(new BusinessFormData());
-const clearData = () => (props.businessRecord.value = new BusinessFormData());
-
-onMounted(() => {
-  clearData();
-});
-
-const { resetForm, handleSubmit, isSubmitting, errors } = useForm<BusinessFormData>({
+const { resetForm, handleSubmit, isSubmitting, errors } = useForm<IBusinessRecord>({
   validationSchema: toTypedSchema(
     object({
       business: string()
         .transform((x) => x.trim())
         .required("Name is required"),
-      // email: string().email().required("Must be a valid email address."),
-      // message: string().min(15, "Must be at least 15 characters."),
-      // businessName: string()
-      //   .transform((x) => x.trim())
-      //   .required("Must be include business name."),
+      type: string().required("Business must have a type."),
+      phone: string().required("Need phone number."),
+      address: string().required("Address required."),
     }),
   ),
 });
 
-const submitForm = handleSubmit(async (values: BusinessFormData) => {
+const submitForm = handleSubmit(async (values: IBusinessRecord) => {
   try {
-    // const response = await businessService.saveBusinessRecord(values);
-    // if (!response.isSuccess) throw new Error(response.message);
+    let response: IEPResponse<IBusinessRecord | null>;
+    const isUpdated = Boolean(values.id);
 
-    // showNotification.value = true;
+    if (isUpdated) {
+      response = await businessService.updateBusinessRecord(values);
+      if (!response.isSuccess) throw new Error(response.message);
 
-    // setTimeout(() => {
-    //   showNotification.value = false;
-    // }, 5000);
-    alert("boom goes the dynamite");
-    resetForm();
+      emit("updateBusinessRecord", response.data!);
+    } else {
+      response = await businessService.saveBusinessRecord(values);
+      if (!response.isSuccess) throw new Error(response.message);
+      emit("saveBusinessRecord", response.data!);
+    }
+    // resetForm();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error(error?.message ?? "There was an issue with sending the form. Please try again.");
@@ -54,8 +62,8 @@ const submitForm = handleSubmit(async (values: BusinessFormData) => {
 });
 
 const updateDate = (newValue: string) => {
-  if (props.businessRecord.value) {
-    props.businessRecord.value.lastContactDate = new Date(newValue);
+  if (props.businessRecord) {
+    props.businessRecord.lastContactDate = new Date(newValue);
   }
 };
 </script>
@@ -65,16 +73,21 @@ const updateDate = (newValue: string) => {
     <div class="modal-box w-11/12 max-w-5xl">
       <h3 class="text-7xl font-bold mb-5">{{ businessRecord?.business }}</h3>
       <form @submit.prevent="submitForm">
+        <div class="hidden">
+          <Field id="id" name="id" v-model="props.businessRecord!.id" />
+        </div>
+
         <div class="flex md:flex-row flex-col gap-4">
           <div class="w-1/2 flex flex-col">
-            <label for="business-name">Name</label>
+            <label for="business">Name</label>
             <Field
-              id="business-name"
-              name="business-name"
+              id="business"
+              name="business"
               label="Business Name"
               placeholder="Business Name"
               v-model="props.businessRecord!.business"
             />
+            <small class="mt-2 ml-1 text-red-600">{{ errors.business }}</small>
           </div>
           <div class="w-1/2 flex flex-col">
             <label for="owner">Owner</label>
@@ -94,14 +107,15 @@ const updateDate = (newValue: string) => {
             name="type"
             label="Business Type"
             as="select"
-            v-model="props.businessRecord!.type.name"
+            v-model="props.businessRecord!.type._id"
             class="select w-full"
           >
             <option value="null" disabled>--select one --</option>
-            <option v-for="(bizType, idx) in businessTypes" :key="idx" :value="bizType">
-              {{ bizType }}
+            <option v-for="bizType in businessTypes" :key="bizType._id" :value="bizType._id">
+              {{ bizType.name }}
             </option>
           </Field>
+          <small class="mt-2 ml-1 text-red-600">{{ errors.type }}</small>
         </div>
         <div class="flex md:flex-row flex-col gap-4 mt-5">
           <div class="w-1/2 flex flex-col">
@@ -113,6 +127,7 @@ const updateDate = (newValue: string) => {
               placeholder="Phone"
               v-model="$props.businessRecord!.phone"
             />
+            <small class="mt-2 ml-1 text-red-600">{{ errors.phone }}</small>
           </div>
           <div class="w-1/2 flex flex-col">
             <label for="owner">Email</label>
@@ -134,6 +149,7 @@ const updateDate = (newValue: string) => {
             v-model="$props.businessRecord!.address"
             class="w-full"
           />
+          <small class="mt-2 ml-1 text-red-600">{{ errors.address }}</small>
         </div>
         <div class="flex md:flex-row flex-col gap-4 mt-5">
           <div class="w-1/2 flex flex-col">
@@ -147,10 +163,10 @@ const updateDate = (newValue: string) => {
             />
           </div>
           <div class="w-1/2 flex flex-col">
-            <label for="last-date-contacted">Last Date Contacted</label>
+            <label for="lastContactDate">Last Date Contacted</label>
             <Field
-              id="last-date-contacted"
-              name="last-date-contacted"
+              id="lastContactDate"
+              name="lastContactDate"
               label="Last Date Contacted"
               type="date"
               :modelValue="formattedDate"
@@ -164,12 +180,14 @@ const updateDate = (newValue: string) => {
             id="outcome"
             name="outcome"
             label="Outcome"
-            v-model="$props.businessRecord!.outcome.name"
+            v-model="$props.businessRecord!.outcome._id"
             class="w-full"
             as="select"
           >
             <option value="">-- select option --</option>
-            <option v-for="outcome in outcomes" :value="outcome">{{ outcome }}</option>
+            <option v-for="outcome in outcomes" :key="outcome._id" :value="outcome._id">
+              {{ outcome.name }}
+            </option>
           </Field>
         </div>
         <div class="flex flex-col mt-5">
@@ -209,8 +227,8 @@ const updateDate = (newValue: string) => {
         </div>
         <div class="flex mt-5">
           <Field
-            id="on-market"
-            name="on-market"
+            id="onMarket"
+            name="onMarket"
             label="On Market"
             v-model="$props.businessRecord!.onMarket"
             class="checkbox mr-4"
@@ -218,11 +236,11 @@ const updateDate = (newValue: string) => {
           />
           <label for="notes">On Market?</label>
         </div>
-        <button class="ep-btn w-full mt-4" :disabled="isSubmitting" type="submit">Save</button>
+        <button type="submit" class="ep-btn w-full mt-4" :disabled="isSubmitting">Save</button>
       </form>
     </div>
     <form method="dialog" class="modal-backdrop">
-      <button @click="clearData">close</button>
+      <button>close</button>
     </form>
   </dialog>
 </template>

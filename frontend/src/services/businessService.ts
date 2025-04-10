@@ -1,23 +1,26 @@
+import BusinessRecordDto from "@/classes/BusinessRecordDto";
+import type { IBusinessType } from "@/interfaces/BusinessType";
 import type { IBusinessRecord } from "@/interfaces/IBusinessRecord";
 import type IEPResponse from "@/interfaces/IEPResponse";
-import type { BusinessTypeResponse } from "@/types/BusinessTypeResponse";
-import type { OutcomeResponse } from "@/types/OutcomeResponse";
+import type { IServerBusinessRecord } from "@/interfaces/IServerBusinessRecord";
+import type { IOutcome } from "@/interfaces/Outcome";
 import axios from "axios";
+import moment from "moment";
 
 const BASE_URL =
   import.meta.env.MODE === "development"
     ? "http://localhost:2222"
     : "https://investor-profile.vercel.app";
-// : "https://eleventhandpemberton.com";
 
 const businessService = {
   getBusinessRecords: async (): Promise<IEPResponse<IBusinessRecord[]>> => {
     try {
       const response = await axios.get(`${BASE_URL}/api/business`);
+      let businessRecords = response.data.length ? BusinessRecordDto.fromMany(response.data) : [];
 
       return {
         isSuccess: true,
-        data: response.data,
+        data: businessRecords,
         message: "",
       };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -29,25 +32,56 @@ const businessService = {
       };
     }
   },
-  saveBusinessRecord: async (): Promise<IEPResponse<IBusinessRecord[]>> => {
+  updateBusinessRecord: async (
+    record: IBusinessRecord,
+  ): Promise<IEPResponse<IBusinessRecord | null>> => {
     try {
-      const response = await axios.get(`${BASE_URL}/api/business`);
+      if (record.lastContactDate) record.lastContactDate = moment(record.lastContactDate).format();
+
+      let updatedServerBusinessRecord = await axios.put(`${BASE_URL}/api/business/update`, record);
+      let updatedBusinessRecord = BusinessRecordDto.from(updatedServerBusinessRecord.data);
 
       return {
         isSuccess: true,
-        data: response.data,
+        data: updatedBusinessRecord,
         message: "",
       };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       return {
         isSuccess: false,
-        data: [],
+        data: null,
         message: error,
       };
     }
   },
-  getOutcomes: async (): Promise<IEPResponse<OutcomeResponse[]>> => {
+  saveBusinessRecord: async (
+    record: IBusinessRecord,
+  ): Promise<IEPResponse<IBusinessRecord | null>> => {
+    try {
+      if (record.lastContactDate) record.lastContactDate = moment(record.lastContactDate).format();
+      let savedServerBusinessRecord: IServerBusinessRecord;
+      let savedBusinessRecord: IBusinessRecord;
+
+      console.log("Saving this record:", record);
+      savedServerBusinessRecord = await axios.post(`${BASE_URL}/api/business/save`, record);
+      savedBusinessRecord = BusinessRecordDto.from(savedServerBusinessRecord);
+
+      return {
+        isSuccess: true,
+        data: savedBusinessRecord,
+        message: "",
+      };
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      return {
+        isSuccess: false,
+        data: null,
+        message: error,
+      };
+    }
+  },
+  getOutcomes: async (): Promise<IEPResponse<IOutcome[]>> => {
     try {
       const response = await axios.get(`${BASE_URL}/api/business/outcome`);
 
@@ -65,7 +99,7 @@ const businessService = {
       };
     }
   },
-  getTypes: async (): Promise<IEPResponse<BusinessTypeResponse[]>> => {
+  getTypes: async (): Promise<IEPResponse<IBusinessType[]>> => {
     try {
       const response = await axios.get(`${BASE_URL}/api/business/types`);
 
@@ -92,9 +126,11 @@ const businessService = {
       ]);
 
       const resBusinessRecords = results[0].status === "fulfilled" ? results[0].value : null;
-      const resOutcomes: IEPResponse<OutcomeResponse[]> | null =
+
+      const resOutcomes: IEPResponse<IOutcome[]> | null =
         results[1].status === "fulfilled" ? results[1].value : null;
-      const resTypes: IEPResponse<BusinessTypeResponse[]> | null =
+
+      const resTypes: IEPResponse<IBusinessType[]> | null =
         results[2].status === "fulfilled" ? results[2].value : null;
 
       if (!resBusinessRecords || !resBusinessRecords.isSuccess)

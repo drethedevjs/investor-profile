@@ -2,7 +2,9 @@
 import BusinessFormData from "@/classes/BusinessFormData";
 import Outcome from "@/classes/Outcome";
 import BusinessRecordModal from "@/components/BusinessRecordModal.vue";
+import type { IBusinessType } from "@/interfaces/BusinessType";
 import type { IBusinessRecord } from "@/interfaces/IBusinessRecord";
+import type { IOutcome as OutcomeType } from "@/interfaces/Outcome";
 import businessService from "@/services/businessService";
 import moment from "moment";
 import { Field } from "vee-validate";
@@ -10,28 +12,31 @@ import { inject, onMounted, ref } from "vue";
 
 let filteredBusinessRecords = ref<IBusinessRecord[]>([]);
 const masterBusinessRecords: IBusinessRecord[] = [];
-let outcomes: string[] = [];
-let businessTypes: string[] = [];
+let outcomes: OutcomeType[] = [];
+let businessTypes: IBusinessType[] = [];
 const selectedBusiness = ref<IBusinessRecord | null>(new BusinessFormData());
 const showErrorToast: ((msg: string) => void) | undefined = inject("showErrorToast");
-
-// selectedBusiness.value = new BusinessFormData()
+const showSuccessToast: ((msg: string) => void) | undefined = inject("showSuccessToast");
 
 onMounted(async () => {
   try {
     const { businessRecords, callOutcomes, types } = await businessService.getListData();
     filteredBusinessRecords.value = businessRecords;
     masterBusinessRecords.push(...businessRecords);
-    outcomes = callOutcomes.map((o) => o.name);
-    businessTypes = types.map((t) => t.name);
+    outcomes = callOutcomes;
+    businessTypes = types;
   } catch (error) {
     console.error(error);
     if (error) showErrorToast!(error.toString());
   }
 });
 
-const openBusinessModal = (record: IBusinessRecord) => {
+const openBusinessModal = (record: any) => {
   const modal = document.getElementById("business_form_data") as HTMLDialogElement;
+  if (!record.type) record.type = { id: "" };
+
+  if (!record.outcome) record.outcome = { id: "" };
+
   selectedBusiness.value = { ...record };
   modal.showModal();
 };
@@ -45,6 +50,21 @@ const search = (e: Event) => {
   filteredBusinessRecords.value = masterBusinessRecords.filter((br) =>
     br.business.toLowerCase().includes(input.value.toLowerCase()),
   );
+};
+
+const updateBusinessRecord = (updatedRecord: IBusinessRecord) => {
+  showSuccessToast!("Business record updated!");
+  const index = masterBusinessRecords.findIndex((r) => r.id === updatedRecord.id);
+  if (index !== -1) {
+    filteredBusinessRecords.value[index] = updatedRecord;
+    masterBusinessRecords[index] = updatedRecord;
+  }
+};
+
+const savedBusinessRecord = (savedRecord: IBusinessRecord) => {
+  showSuccessToast!("Business record saved!");
+  filteredBusinessRecords.value.push(savedRecord);
+  masterBusinessRecords.push(savedRecord);
 };
 </script>
 
@@ -140,6 +160,8 @@ const search = (e: Event) => {
     :outcomes="outcomes"
     :businessTypes="businessTypes"
     :businessRecord="selectedBusiness"
+    @updateBusinessRecord="updateBusinessRecord"
+    @savedBusinessRecord="savedBusinessRecord"
   />
 </template>
 
@@ -149,5 +171,9 @@ td {
 }
 th {
   @apply border-x-2;
+}
+
+input {
+  @apply border-2 border-accent rounded-md p-3;
 }
 </style>

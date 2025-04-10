@@ -1,8 +1,8 @@
 import type { IBusinessType } from "@/interfaces/BusinessType";
 import type { IOutcome } from "@/interfaces/Outcome";
 
-export interface IBusinessRecord {
-  id?: string;
+export interface IServerBusinessRecord {
+  _id: string;
   business: string;
   type: IBusinessType; // Uses predefined list of business types
   owner: string;
@@ -10,7 +10,7 @@ export interface IBusinessRecord {
   email: string;
   parcel: string;
   address: string;
-  lastContactDate: Date | string | null; // Use Date if handling actual Date objects
+  lastContactDate: Date; // Use Date if handling actual Date objects
   outcome: IOutcome;
   notes: string;
   onMarket: boolean;
