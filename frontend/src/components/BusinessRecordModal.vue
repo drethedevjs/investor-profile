@@ -214,10 +214,10 @@ const updateDate = (newValue: string) => {
             />
           </div>
           <div class="flex flex-col mt-5 w-1/2">
-            <label for="cash-flow">Cash Flow</label>
+            <label for="cashFlow">Cash Flow</label>
             <Field
-              id="cash-flow"
-              name="cash-flow"
+              id="cashFlow"
+              name="cashFlow"
               label="Cash Flow"
               v-model="$props.businessRecord!.cashFlow"
               class="w-full"
@@ -236,7 +236,14 @@ const updateDate = (newValue: string) => {
           />
           <label for="notes">On Market?</label>
         </div>
-        <button type="submit" class="ep-btn w-full mt-4" :disabled="isSubmitting">Save</button>
+        <button
+          type="submit"
+          class="ep-btn w-full mt-4 disabled:bg-neutral"
+          :disabled="isSubmitting"
+        >
+          <span v-show="isSubmitting" class="loading loading-dots loading-md"></span>
+          <span v-show="!isSubmitting">Save</span>
+        </button>
       </form>
     </div>
     <form method="dialog" class="modal-backdrop">
