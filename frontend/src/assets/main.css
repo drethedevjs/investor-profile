@@ -16,6 +16,10 @@ h2 {
   @apply text-5xl text-secondary drop-shadow font-bold mb-5 uppercase;
 }
 
+h3 {
+  @apply text-3xl text-neutral drop-shadow font-bold mb-5 uppercase;
+}
+
 p {
   @apply md:text-2xl md:leading-9 text-xl mb-3;
 }
