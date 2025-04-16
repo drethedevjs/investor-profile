@@ -6,7 +6,7 @@ import type { IOutcome } from "@/interfaces/Outcome";
 import businessService from "@/services/businessService";
 import { toTypedSchema } from "@vee-validate/yup";
 import { Field, useForm } from "vee-validate";
-import { computed, defineEmits, defineProps } from "vue";
+import { computed, defineEmits, defineProps, ref } from "vue";
 import { object, string } from "yup";
 
 const props = defineProps<{
@@ -20,13 +20,22 @@ const emit = defineEmits<{
   (e: "saveBusinessRecord", savedRecord: IBusinessRecord): void;
 }>();
 
+let successfulSaveToggle = ref<boolean>(false);
+const showSavedSuccessOnForm = () => {
+  successfulSaveToggle.value = true;
+
+  setTimeout(() => {
+    successfulSaveToggle.value = false;
+  }, 3000);
+};
+
 const formattedDate = computed(() =>
   props.businessRecord?.lastContactDate
     ? new Date(props.businessRecord.lastContactDate).toISOString().split("T")[0]
     : "",
 );
 
-const { resetForm, handleSubmit, isSubmitting, errors } = useForm<IBusinessRecord>({
+const { handleSubmit, isSubmitting, errors } = useForm<IBusinessRecord>({
   validationSchema: toTypedSchema(
     object({
       business: string()
@@ -52,9 +61,11 @@ const submitForm = handleSubmit(async (values: IBusinessRecord) => {
     } else {
       response = await businessService.saveBusinessRecord(values);
       if (!response.isSuccess) throw new Error(response.message);
+
       emit("saveBusinessRecord", response.data!);
     }
-    // resetForm();
+
+    showSavedSuccessOnForm();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error(error?.message ?? "There was an issue with sending the form. Please try again.");
@@ -244,6 +255,9 @@ const updateDate = (newValue: string) => {
           <span v-show="isSubmitting" class="loading loading-dots loading-md"></span>
           <span v-show="!isSubmitting">Save</span>
         </button>
+        <div class="text-center mt-3">
+          <small v-show="successfulSaveToggle" class="text-success">Record saved!</small>
+        </div>
       </form>
     </div>
     <form method="dialog" class="modal-backdrop">
