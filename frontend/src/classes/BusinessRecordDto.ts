@@ -31,8 +31,8 @@ export default class BusinessRecordDto implements IBusinessRecord {
       this.outcome = record.outcome;
       this.notes = record.notes;
       this.onMarket = record.onMarket;
-      this.price = null;
-      this.cashFlow = null;
+      this.price = record.price;
+      this.cashFlow = record.cashFlow;
     }
   }
 
