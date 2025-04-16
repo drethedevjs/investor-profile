@@ -20,7 +20,7 @@ const businessService = {
 
       return {
         isSuccess: true,
-        data: businessRecords,
+        data: businessRecords.sort((a, b) => a.business.localeCompare(b.business)),
         message: "",
       };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -87,7 +87,7 @@ const businessService = {
 
       return {
         isSuccess: true,
-        data: response.data,
+        data: response.data.sort((a: IOutcome, b: IOutcome) => a.name.localeCompare(b.name)),
         message: "",
       };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -105,7 +105,9 @@ const businessService = {
 
       return {
         isSuccess: true,
-        data: response.data,
+        data: response.data.sort((a: IBusinessType, b: IBusinessType) =>
+          a.name.localeCompare(b.name),
+        ),
         message: "",
       };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
