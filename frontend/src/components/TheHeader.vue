@@ -22,8 +22,8 @@ import HamburgerIcon from "./HamburgerIcon.vue";
       </div>
       <div class="navbar-center">
         <a class="font-bold md:text-4xl text-3xl flex flex-col text-center" href="/">
-          Eleventh & Pemberton
-
+          <!-- Eleventh & Pemberton -->
+          <img src="/public/images/logos/logo-wht-txt-clipped.png" class="h-10" />
           <p class="tracking-widest uppercase font-thin">holdings</p>
         </a>
       </div>
