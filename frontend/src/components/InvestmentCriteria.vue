@@ -1,7 +1,7 @@
 <template>
   <section id="investment-criteria">
-    <div class="lg:mx-52 p-10 bg-primary text-accent">
-      <div class="mx-auto text-center 2xl:w-7/12">
+    <div class="p-10 bg-primary text-accent">
+      <div class="mx-auto text-center 2xl:w-7/12 lg:w-4/6">
         <h2 class="text-neutral">Investment Criteria</h2>
         <p class="text-white">
           We focus on businesses that align with our values and have strong potential for growth.

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { RouterLink } from "vue-router";
 </script>
+
 <template>
   <section id="about-pane">
     <div class="container-pane">
@@ -18,7 +19,7 @@ import { RouterLink } from "vue-router";
           </div>
         </div>
       </div>
-      <div class="lg:w-2/3">
+      <div class="lg:w-2/3 md:text-left text-center">
         <h2>About Us</h2>
         <p>
           At Eleventh & Pemberton, we believe in investing in your legacy. We're not just about
@@ -46,7 +47,7 @@ import { RouterLink } from "vue-router";
 </template>
 
 <style scoped>
-#about-pane {
+.container-pane {
   @apply my-20 flex lg:flex-row flex-col md:gap-20 gap-10;
 }
 </style>
