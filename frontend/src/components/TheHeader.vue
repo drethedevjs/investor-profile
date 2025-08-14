@@ -4,7 +4,7 @@ import HamburgerIcon from "./HamburgerIcon.vue";
 </script>
 <template>
   <header>
-    <div class="navbar bg-primary text-white h-32 shadow-sm">
+    <div class="navbar bg-primary text-white h-20 shadow-sm">
       <div class="navbar-start">
         <div class="dropdown">
           <HamburgerIcon />
@@ -20,11 +20,11 @@ import HamburgerIcon from "./HamburgerIcon.vue";
           </ul>
         </div>
       </div>
-      <div class="navbar-center">
-        <a class="font-bold md:text-4xl text-3xl flex flex-col text-center" href="/">
+      <div class="navbar-center ml-3 mt-3">
+        <a class="flex flex-col text-center" href="/">
           <!-- Eleventh & Pemberton -->
-          <img src="/public/images/logos/logo-wht-txt-clipped.png" class="h-10" />
-          <p class="tracking-widest uppercase font-thin">holdings</p>
+          <img src="/public/images/logos/logo-wht-txt-clipped.png" class="md:h-10 h-5" />
+          <p class="tracking-widest uppercase font-thin md:text-base text-sm">holdings</p>
         </a>
       </div>
       <div class="navbar-end">

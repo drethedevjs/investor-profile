@@ -46,44 +46,47 @@ import { Mail, Phone } from "lucide-vue-next";
       </div>
     </div>
   </div>
+
   <div class="flex flex-col mx-auto container mt-10">
     <div id="investment-focus" class="sm:mt-20 mt-10">
       <h2>Investment Focus</h2>
-      <table class="table text-2xl">
-        <thead>
-          <tr>
-            <td class="w-2/12"></td>
-            <td class="w-10/12"></td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="header-row">Asset Class:</td>
-            <td>Small Businesses</td>
-          </tr>
-          <tr>
-            <td class="header-row">Risk Tolerance:</td>
-            <td>Long-term holds</td>
-          </tr>
-          <tr>
-            <td class="header-row">Preferred Investment Structure:</td>
-            <td>
-              <ul class="mb-5">
-                <li>Seller Financing <small>(ideal!)</small></li>
-                <li>90/10 equity split with option to purchase remaining 10%</li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <td class="header-row">Target Industries:</td>
-            <td>
-              <span class="ep-badge mr-3" v-for="t in businessTypes">
-                {{ t.name }}
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="overflow-auto">
+        <table class="table text-2xl">
+          <thead>
+            <tr>
+              <td class="w-2/12"></td>
+              <td class="w-10/12"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="header-row">Asset Class:</td>
+              <td>Small Businesses</td>
+            </tr>
+            <tr>
+              <td class="header-row">Risk Tolerance:</td>
+              <td>Long-term holds</td>
+            </tr>
+            <tr>
+              <td class="header-row">Preferred Investment Structure:</td>
+              <td>
+                <ul class="mb-5">
+                  <li>Seller Financing <small>(ideal!)</small></li>
+                  <li>90/10 equity split with option to purchase remaining 10%</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td class="header-row">Target Industries:</td>
+              <td>
+                <span class="ep-badge mr-3" v-for="(t, idx) in businessTypes" :key="idx">
+                  {{ t.name }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <div id="past-investments" class="mt-20">
       <h2>Past Investments</h2>

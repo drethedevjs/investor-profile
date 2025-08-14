@@ -19,13 +19,9 @@ import businessTypes from "@/data/businessTypes";
     </div>
   </div>
 
-  <div class="container-pane">
-    <AboutPane />
-  </div>
+  <AboutPane />
 
-  <div class="bg-primary text-accent py-20">
-    <InvestmentCriteria />
-  </div>
+  <InvestmentCriteria />
 
   <div id="business-types" class="container-pane md:my-20 my-10">
     <div class="lg:w-2/3 mx-auto text-center">

@@ -46,7 +46,7 @@ const submitForm = handleSubmit(async (values: ContactFormData) => {
 </script>
 
 <template>
-  <div id="contact" class="container-pane text-center my-20">
+  <div id="contact" class="container-pane text-center mt-10">
     <h2>Contact Us</h2>
     <p>
       Have a business opportunity or questions about our investment process? We'd love to hear from

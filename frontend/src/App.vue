@@ -5,16 +5,16 @@ import { RouterView } from "vue-router";
 import TheFooter from "./components/TheFooter.vue";
 import TheHeader from "./components/TheHeader.vue";
 
-let showError = ref<boolean>(false);
-let toastErrorMsg = ref<string>("");
+const showError = ref<boolean>(false);
+const toastErrorMsg = ref<string>("");
 
 const showErrorToast = (msg: string) => {
   toastErrorMsg.value = msg;
   showError.value = true;
 };
 
-let showSuccess = ref<boolean>(false);
-let toastSuccessMsg = ref<string>("");
+const showSuccess = ref<boolean>(false);
+const toastSuccessMsg = ref<string>("");
 
 const showSuccessToast = (msg: string) => {
   toastSuccessMsg.value = msg;
