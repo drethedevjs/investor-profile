@@ -35,6 +35,11 @@ const toggleCopy = (color: IBrandColor) => (color.copied = !color.copied);
     </div>
     <div class="mt-10">
       <h2>Logos</h2>
+      <h3>Fonts</h3>
+      <ul class="ml-10 mb-5">
+        <li>"Eleventh" is Baskerville font.</li>
+        <li>"& Pemberton" is Avenir Next font.</li>
+      </ul>
       <div id="transparent-bg">
         <h3>Transparent Backgrounds</h3>
         <div class="grid gap-5 grid-cols-1 xl:grid-cols-3">
@@ -88,10 +93,14 @@ const toggleCopy = (color: IBrandColor) => (color.copied = !color.copied);
 
 <style scoped>
 .logo {
-  @apply rounded-md border-2 border-accent cursor-pointer;
+  @apply rounded-md border-2 border-accent cursor-pointer object-contain;
 }
 
 .brand-color {
   @apply rounded-lg flex justify-between p-4 mb-2 cursor-pointer;
+}
+
+li {
+  @apply list-disc inset-3 text-2xl;
 }
 </style>
