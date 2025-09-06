@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { Mail, Phone } from "lucide-vue-next";
+import { useRoute } from "vue-router";
 import HamburgerIcon from "./HamburgerIcon.vue";
+
+const route = useRoute();
 </script>
 <template>
   <header>
@@ -10,20 +13,21 @@ import HamburgerIcon from "./HamburgerIcon.vue";
           <HamburgerIcon />
           <ul
             tabindex="0"
-            class="text-xl menu menu-sm dropdown-content bg-accent rounded-box z-1 mt-3 p-2 shadow text-primary"
+            class="text-xl menu menu-xs dropdown-content bg-accent rounded-box z-1 mt-3 p-2 shadow text-primary"
           >
-            <li><a href="#about-pane">About</a></li>
-            <li><a href="#investment-criteria">Our Criteria</a></li>
-            <li><a href="#business-types">Investment Types</a></li>
-            <li><a href="#our-process">Our Process</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="/#about-pane">About</a></li>
+            <li><a href="/#investment-criteria">Our Criteria</a></li>
+            <li><a href="/#business-types">Investment Types</a></li>
+            <li><a href="/#our-process">Our Process</a></li>
+            <li><a href="/partner">Partner with Us</a></li>
+            <li><a href="/#contact">Contact</a></li>
           </ul>
         </div>
       </div>
       <div class="navbar-center ml-3 mt-3">
         <a class="flex flex-col text-center" href="/">
           <!-- Eleventh & Pemberton -->
-          <img src="/public/images/logos/logo-wht-txt-clipped.png" class="md:h-10 h-5" />
+          <img src="/images/logos/logo-wht-txt-clipped.png" class="md:h-10 h-5" />
           <p class="tracking-widest uppercase font-thin md:text-xl text-sm">holdings</p>
         </a>
       </div>
