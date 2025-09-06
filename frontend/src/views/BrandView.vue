@@ -44,13 +44,13 @@ const toggleCopy = (color: IBrandColor) => (color.copied = !color.copied);
         <h3>Transparent Backgrounds</h3>
         <div class="grid gap-5 grid-cols-1 xl:grid-cols-3">
           <img
-            src="/public/images/logos/logo-blue-txt.png"
+            src="/images/logos/logo-blue-txt.png"
             class="logo h-96"
             alt="EP logo with blue text and transparent background."
           />
           <div>
             <img
-              src="/public/images/logos/logo-wht-txt.png"
+              src="/images/logos/logo-wht-txt.png"
               class="logo h-96 bg-gray-200"
               alt="EP logo with blue text and transparent background."
             />
@@ -58,14 +58,14 @@ const toggleCopy = (color: IBrandColor) => (color.copied = !color.copied);
           </div>
           <div>
             <img
-              src="/public/images/logos/logo-wht-txt-clipped.png"
+              src="/images/logos/logo-wht-txt-clipped.png"
               class="logo h-20 bg-gray-200"
               alt="EP logo with blue text and transparent background."
             />
             <small><i>Gray background here to show white text.</i></small>
           </div>
           <img
-            src="/public/images/logos/logo-blue-txt-clipped.png"
+            src="/images/logos/logo-blue-txt-clipped.png"
             class="logo h-20"
             alt="EP logo with blue text and transparent background."
           />
@@ -76,12 +76,12 @@ const toggleCopy = (color: IBrandColor) => (color.copied = !color.copied);
         <h3>Solid Backgrounds</h3>
         <div class="grid gap-5 grid-cols-1 xl:grid-cols-2">
           <img
-            src="/public/images/logos/logo-blue-txt-wht-bg.jpg"
+            src="/images/logos/logo-blue-txt-wht-bg.jpg"
             class="logo h-96"
             alt="EP logo with blue text and transparent background."
           />
           <img
-            src="/public/images/logos/logo-blue-bg-wht-txt.jpg"
+            src="/images/logos/logo-blue-bg-wht-txt.jpg"
             class="logo h-96"
             alt="EP logo with blue text and transparent background."
           />
