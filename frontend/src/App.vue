@@ -47,7 +47,7 @@ provide("showSuccessToast", showSuccessToast);
     <CheckCircle />
     <span class="font-semibold text-xl">{{ toastSuccessMsg }}</span>
   </div>
-  <main>
+  <main class="min-h-screen">
     <RouterView />
   </main>
   <TheFooter />
