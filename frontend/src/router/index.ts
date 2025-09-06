@@ -1,6 +1,7 @@
 import BrandView from "@/views/BrandView.vue";
 import DealView from "@/views/DealView.vue";
 import HomeView from "@/views/HomeView.vue";
+import PartnerView from "@/views/PartnerView.vue";
 import ProfileView from "@/views/ProfileView.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -21,6 +22,11 @@ const router = createRouter({
       path: "/deals",
       name: "deals",
       component: DealView,
+    },
+    {
+      path: "/partner",
+      name: "partner",
+      component: PartnerView,
     },
     {
       path: "/brand",

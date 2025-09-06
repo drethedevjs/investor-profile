@@ -1,9 +1,6 @@
 <script lang="ts" setup>
 import { Mail, Phone } from "lucide-vue-next";
-import { useRoute } from "vue-router";
 import HamburgerIcon from "./HamburgerIcon.vue";
-
-const route = useRoute();
 </script>
 <template>
   <header>
